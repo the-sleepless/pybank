@@ -1,13 +1,14 @@
-import time
-
 from wallet import deposit, withdraw, view, money
 from terminal import tprint, tloading, tclear, message
 from utils import number
 
+import time
+
 options = {
     1: "Withdraw",
     2: "Deposit",
-    3: "View"
+    3: "View",
+    4: "Exit"
 }
 
 options2 = {
@@ -17,7 +18,11 @@ options2 = {
 
 
 while True:
-    tprint(f"Select an option: (1): {options[1]} | (2) {options[2]} | (3) {options[3]}", loading=True)
+    title = "Select an option | "
+    for id, name in options.items():
+        title += f"({id}): {name} | "
+
+    tprint(title, loading=True)
     option = number(input("> "))
 
     if option is None or not option in options:
@@ -31,7 +36,12 @@ while True:
         if amount is None:
             continue
 
-     # finish later
+        success, msg = withdraw(amount)
+        if not success:
+            message(msg)
+            continue
+
+        message(msg)
 
     elif option == 2:
         tprint("Enter an amount:")
@@ -40,13 +50,27 @@ while True:
         if amount is None:
             continue
 
-    # finish later
+        success, msg = deposit(amount)
+        if not success:
+            message(msg)
+            continue
+
+        message(msg)
 
     elif option == 3:
-        tprint(f"Select an option: (1): {options2[1]} | (2) {options2[2]}", loading=True)
+        title = "Select an option | "
+        for id, name in options2.items():
+            title += f"({id}): {name} | "
+
+        tprint(title, loading=True)
         tmp = number(input("> "))
 
         if tmp is None or not tmp in options2:
             continue
 
         message(f"Your balance in {options2[tmp].lower()} is {view(options2[tmp])}")
+
+    elif option == 4:
+        break
+
+tprint("Execution finished", loading=True)

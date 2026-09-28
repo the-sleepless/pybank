@@ -1,4 +1,5 @@
 import subprocess
+import colors
 import time
 import os
 
@@ -18,14 +19,14 @@ def tloading(clear: bool = True):
         if char != "•":
             continue
 
-        loading = loading.replace("•", "#", 1)
+        loading = loading.replace("•", f"{colors.GREEN}#{colors.RESET}", 1)
         print(loading, end="\r", flush=True)
         time.sleep(0.05)
 
 
-def message(text):
+def message(text: str, duration: int = 2):
     tprint(text)
-    time.sleep(2)
+    time.sleep(duration)
 
 
 def tprint(text: str, loading: bool = False, clear: bool = True):

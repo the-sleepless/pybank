@@ -1,14 +1,15 @@
 import time
+import colors
 
 from terminal import tprint, tloading, tclear
 
-def number(value):
+
+def number(value: int | str):
     try:
         value = int(value)
 
         return value
     except ValueError:
-        tprint("Select a valid input.", loading=False, clear=True)
+        tprint(f"{colors.RED}Select a valid input.{colors.RESET}", loading=False, clear=True)
         time.sleep(2)
-
         return None
