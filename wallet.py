@@ -1,4 +1,3 @@
-import colors
 import json
 
 money: dict[str, int | float] = { "Bank": 0, "Wallet": 0 }

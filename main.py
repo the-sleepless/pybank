@@ -1,8 +1,6 @@
-from wallet import deposit, withdraw, view, money
-from terminal import tprint, tloading, tclear, message
+from wallet import deposit, withdraw, view
+from terminal import tprint, message
 from utils import number
-
-import time
 
 options = {
     1: "Withdraw",

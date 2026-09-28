@@ -1,7 +1,7 @@
 import time
 import colors
 
-from terminal import tprint, tloading, tclear
+from terminal import tprint
 
 
 def number(value: int | str):
