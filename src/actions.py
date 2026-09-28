@@ -51,7 +51,7 @@ def depositAction():
         return
 
     deposit(amount)
-    tmessage(f"You withdrew {amount} from the wallet!")
+    tmessage(f"You deposited {amount} into the bank!")
 
 
 def exitAction():
