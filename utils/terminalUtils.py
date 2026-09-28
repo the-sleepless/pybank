@@ -1,8 +1,8 @@
+from constants import colors
+
 import subprocess
-import colors
 import time
 import os
-
 
 def tclear():
     subprocess.run(["cls" if os.name == "nt" else "clear"])
@@ -24,7 +24,7 @@ def tloading(clear: bool = True):
         time.sleep(0.05)
 
 
-def message(text: str, duration: int = 2):
+def tmessage(text: str, duration: int = 2):
     tprint(text)
     time.sleep(duration)
 

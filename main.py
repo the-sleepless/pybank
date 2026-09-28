@@ -1,74 +1,35 @@
-from wallet import deposit, withdraw, view
-from terminal import tprint, message
-from utils import number
+from src.actions import withdrawAction, depositAction, viewAction, exitAction
+from utils.terminalUtils import tmessage
+from utils.inputUtils import getInput
+from collections.abc import Callable
+from dataclasses import dataclass
 
-options = {
-    1: "Withdraw",
-    2: "Deposit",
-    3: "View",
-    4: "Exit"
-}
+@dataclass
+class MainOption:
+    name: str
+    action: Callable[[], None]
 
-options2 = {
-    1: "Bank",
-    2: "Wallet"
+
+mainOptions: dict[int, MainOption] = {
+    1: MainOption("Withdraw", withdrawAction),
+    2: MainOption("Deposit", depositAction),
+    3: MainOption("View", viewAction),
+    4: MainOption("Exit", exitAction),
 }
 
 
 while True:
-    title = "Select an option | "
-    for id, name in options.items():
-        title += f"({id}): {name} | "
+    title = " "
+    for index in mainOptions:
+       item = mainOptions[index]
+       title += f"({index}) {item.name} "
 
-    tprint(title, loading=True)
-    option = number(input("> "))
+    tmessage(title + "\n", 0)
+    selected = getInput("int")
 
-    if option is None or not option in options:
+    if selected is None or not selected in mainOptions:
+        tmessage("Enter a valid input!")
         continue
 
-
-    if option == 1:
-        tprint("Enter an amount:")
-        amount = number(input("> "))
-
-        if amount is None:
-            continue
-
-        success, msg = withdraw(amount)
-        if not success:
-            message(msg)
-            continue
-
-        message(msg)
-
-    elif option == 2:
-        tprint("Enter an amount:")
-        amount = number(input("> "))
-
-        if amount is None:
-            continue
-
-        success, msg = deposit(amount)
-        if not success:
-            message(msg)
-            continue
-
-        message(msg)
-
-    elif option == 3:
-        title = "Select an option | "
-        for id, name in options2.items():
-            title += f"({id}): {name} | "
-
-        tprint(title, loading=True)
-        tmp = number(input("> "))
-
-        if tmp is None or not tmp in options2:
-            continue
-
-        message(f"Your balance in {options2[tmp].lower()} is {view(options2[tmp])}")
-
-    elif option == 4:
-        break
-
-tprint("Execution finished", loading=True)
+    selectedItem = mainOptions[selected]
+    selectedItem.action()
