@@ -27,7 +27,7 @@ while True:
     tmessage(title + "\n", 0)
     selected = getInput("int")
 
-    if selected is None or not selected in mainOptions:
+    if selected is None or selected not in mainOptions:
         tmessage("Enter a valid input!")
         continue
 
