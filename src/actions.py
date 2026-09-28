@@ -16,7 +16,7 @@ def viewAction():
     tmessage(title + "\n", 0)
     selected = getInput("int")
 
-    if selected is None or not selected in viewOptions:
+    if selected is None or selected not in viewOptions:
         tmessage("Enter a valid input!")
         return
 
