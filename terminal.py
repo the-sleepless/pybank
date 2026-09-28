@@ -23,6 +23,11 @@ def tloading(clear: bool = True):
         time.sleep(0.05)
 
 
+def message(text):
+    tprint(text)
+    time.sleep(2)
+
+
 def tprint(text: str, loading: bool = False, clear: bool = True):
     if loading:
         tloading(clear)

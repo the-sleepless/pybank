@@ -1,7 +1,8 @@
 import time
 
 from wallet import deposit, withdraw, view, money
-from terminal import tprint, tloading, tclear
+from terminal import tprint, tloading, tclear, message
+from utils import number
 
 options = {
     1: "Withdraw",
@@ -9,7 +10,7 @@ options = {
     3: "View"
 }
 
-wallet_options = {
+options2 = {
     1: "Bank",
     2: "Wallet"
 }
@@ -17,32 +18,35 @@ wallet_options = {
 
 while True:
     tprint(f"Select an option: (1): {options[1]} | (2) {options[2]} | (3) {options[3]}", loading=True)
-    option = input("> ")
+    option = number(input("> "))
 
-    if not option.isdigit() or not int(option) in options:
-        tprint("Select a valid option.", loading=False, clear=True)
-        time.sleep(2)
+    if option is None or not option in options:
         continue
-    else:
-        option = int(option)
+
 
     if option == 1:
         tprint("Enter an amount:")
-        amount = input("> ")
+        amount = number(input("> "))
 
-        if not amount.isdigit() or int(amount) > money["Bank"]:
-            tprint("Select a valid amount.", loading=False, clear=True)
-            time.sleep(2)
+        if amount is None:
             continue
+
+     # finish later
+
+    elif option == 2:
+        tprint("Enter an amount:")
+        amount = number(input("> "))
+
+        if amount is None:
+            continue
+
+    # finish later
 
     elif option == 3:
-        tprint(f"Select an option: (1): {wallet_options[1]} | (2) {wallet_options[2]}", loading=True)
-        tmp = input("> ")
+        tprint(f"Select an option: (1): {options2[1]} | (2) {options2[2]}", loading=True)
+        tmp = number(input("> "))
 
-        if not tmp.isdigit() or not int(tmp) in wallet_options:
-            tprint("Select a valid option.", loading=False, clear=True)
-            time.sleep(2)
+        if tmp is None or not tmp in options2:
             continue
-        else:
-            tprint(f"Your balance in {wallet_options[int(tmp)]} is {view(wallet_options[int(tmp)])}")
-            time.sleep(2)
+
+        message(f"Your balance in {options2[tmp].lower()} is {view(options2[tmp])}")

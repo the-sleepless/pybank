@@ -1,23 +1,21 @@
-from typing import Literal
+import json
 
-money = {
-    "Bank": 500,
-    "Wallet": 0,
-}
+money = { "Bank": 0, "Wallet": 0 }
 
-
+with open("data.json", "r") as file:
+    money = json.load(file)
 
 def view(option: str):
     return money[option]
 
-
+def save_data():
+    with open("data.json", "w") as file:
+        json.dump(money, file, indent=4)
 
 def withdraw(value: int | float):
-    if money["bank"] < value:
+    if money["Bank"] < value:
         return False, "Insufficient balance for withdrawal."
 
-
-
 def deposit(value: int | float):
-    if money["wallet"] < value:
+    if money["Wallet"] < value:
         return False, "Insufficient balance for deposit."
